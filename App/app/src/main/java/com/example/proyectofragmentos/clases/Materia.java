@@ -15,6 +15,7 @@ public class Materia {
         this.nombre = nombre;
         this.profesor = profesor;
         this.estudiantesInscritos = new ArrayList<Estudiante>();
+        MainActivity.materias.add(this);
     }
 
     public String getCodigo() {
@@ -57,5 +58,19 @@ public class Materia {
         estudiantesInscritos.remove(estudiante);
     }
 
+    public boolean estaInscrito(Estudiante estudianteARevisar){
+        boolean estaInscrito = false;
+        for (Estudiante estudiante: this.estudiantesInscritos
+             ) {
+            if(estudiante == estudianteARevisar){
+                estaInscrito = true;
+            }
+        }
+        return estaInscrito;
+    }
+
+    public void eliminarMateria(){
+        MainActivity.materias.remove(this);
+    }
     
 }
