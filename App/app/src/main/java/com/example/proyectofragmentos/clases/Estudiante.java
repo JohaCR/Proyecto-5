@@ -1,6 +1,6 @@
 package com.example.proyectofragmentos.clases;
 
-import com.example.proyectofragmentos.vistas.MainActivity;
+import com.example.proyectofragmentos.MainActivity;
 
 public class Estudiante {
 

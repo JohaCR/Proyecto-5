@@ -2,6 +2,8 @@ package com.example.proyectofragmentos.clases;
 
 
 
+import com.example.proyectofragmentos.MainActivity;
+
 import java.util.ArrayList;
 
 public class Materia {
