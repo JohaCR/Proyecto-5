@@ -1,4 +1,4 @@
-package com.example.proyectofragmentos;
+package com.example.proyectofragmentos.vistas;
 
 import android.os.Bundle;
 
@@ -21,7 +21,14 @@ import android.widget.TextView;
 
 import com.example.proyectofragmentos.ui.main.SectionsPagerAdapter;
 
+import com.example.proyectofragmentos.R;
+import com.example.proyectofragmentos.clases.Materia;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static ArrayList<Materia> materias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
