@@ -9,19 +9,21 @@ import java.util.ArrayList;
 
 public final class Singleton {
 
-    private static Singleton instance;
+    private static Singleton instancia;
     public ArrayList<Materia> materias;
     public ArrayList<Estudiante> estudiantes;
 
-    private Singleton(Context contex) {
-        new AdaptadorArchivo().leerMaterias(contex);
+    private Singleton() {
+        AdaptadorArchivo adaptadorArchivo = new AdaptadorArchivo();
+        this.materias = adaptadorArchivo.getMaterias();
+        this.estudiantes = adaptadorArchivo.getEstudiantes();
     }
 
-    public static Singleton getInstance(Context context) {
-        if (instance == null) {
-            instance = new Singleton(context);
+    public static Singleton getInstance() {
+        if (instancia == null) {
+            instancia = new Singleton();
         }
-        return instance;
+        return instancia;
     }
 
 }

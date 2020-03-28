@@ -13,10 +13,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class AdaptadorArchivo {
 
-    public void escribirArchivo(String nombreArchivo, String datos,Context context){
+    public ArrayList<Materia> materias;
+    public ArrayList<Estudiante> estudiantes;
+    public static Context context;
+
+
+    public void escribirArchivo(String nombreArchivo, String datos){
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(nombreArchivo, Context.MODE_PRIVATE));
             outputStreamWriter.write(datos);
@@ -27,7 +33,16 @@ public class AdaptadorArchivo {
         }
     }
 
-    public void leerMaterias(Context context){
+    public ArrayList<Materia> getMaterias() {
+        leerMaterias();
+        return materias;
+    }
+
+    public ArrayList<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    private void leerMaterias(){
         try {
             InputStream inputStream = context.openFileInput("materias.csv");
 
@@ -39,8 +54,8 @@ public class AdaptadorArchivo {
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
                     String[] parametros = receiveString.split(",");
                     Materia materia = new Materia(parametros[0], parametros[1], parametros[2]);
-                    leerEstudiantes(materia, context);
-                    MainActivity.materias.add(materia);
+                    leerEstudiantes(materia);
+                    this.materias.add(materia);
                 }
                 inputStream.close();
             }
@@ -52,7 +67,7 @@ public class AdaptadorArchivo {
         }
     }
 
-    private void leerEstudiantes(Materia materia,Context context){
+    private void leerEstudiantes(Materia materia){
         try {
             InputStream inputStream = context.openFileInput("estudiantes.csv");
 
@@ -66,6 +81,9 @@ public class AdaptadorArchivo {
                     if(parametros[0].equals(materia.getCodigo())){
                         Estudiante estudiante = new Estudiante(parametros[1], parametros[2], parametros[3]);
                         materia.agregarEstudiante(estudiante);
+                        if(this.estudiantes.indexOf(estudiante) == -1){
+                            this.estudiantes.add(estudiante);
+                        }
                     }
                 }
                 inputStream.close();
