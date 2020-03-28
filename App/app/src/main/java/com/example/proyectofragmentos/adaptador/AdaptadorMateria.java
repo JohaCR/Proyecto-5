@@ -23,9 +23,9 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
     private final RecyclerView recyclerView;
 
 
-    public void onBindViewHolder(AdaptadorMateria.MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(AdaptadorMateria.MyViewHolder myViewHolder, final int position) {
 
-        Materia materia = this.listaMateria.get(position);
+        final Materia materia = this.listaMateria.get(position);
         TextView textViewCodigo = myViewHolder.textViewCodigo;
         textViewCodigo.setText(materia.getCodigo());
 
@@ -42,6 +42,14 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
             }
         }));
 
+        ImageButton buttonBorrarMateria = myViewHolder.buttonBorrarMateria;
+        buttonBorrarMateria.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
+            public final void onClick(View it) {
+                materia.eliminarMateria();
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, listaMateria.size());
+            }
+        }));
     }
 
     @Override
@@ -72,7 +80,7 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
         private TextView textViewNombreMateria;
         private TextView textViewProfesor;
         private ImageButton buttonEditarMateria;
-
+        private ImageButton buttonBorrarMateria;
 
         public MyViewHolder(View view) {
             super(view);
@@ -80,7 +88,7 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
             this.textViewNombreMateria = view.findViewById(R.id.textViewNombreMateria);
             this.textViewProfesor = view.findViewById(R.id.textViewProfesor);
             this.buttonEditarMateria = view.findViewById(R.id.imageButtonEditarMateria);
-
+            this.buttonBorrarMateria = view.findViewById(R.id.imageButtonBorrarMateria);
         }
     }
 }

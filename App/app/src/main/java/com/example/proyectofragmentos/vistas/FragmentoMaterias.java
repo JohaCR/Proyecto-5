@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.proyectofragmentos.R;
+import com.example.proyectofragmentos.adaptador.Singleton;
 import com.example.proyectofragmentos.clases.Materia;
 import com.example.proyectofragmentos.adaptador.AdaptadorMateria;
 import com.example.proyectofragmentos.clases.Materia;
@@ -72,14 +73,8 @@ public class FragmentoMaterias extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_fragmento_materias,container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_materias);
-        Materia e1 = new Materia("11111", "Programacion II", "Andres Ramirez");
-        Materia e2 = new Materia("2222", "Base de datos", "Juana Loaiza");
-        Materia e3 = new Materia("333", "Gestion de TICs", "Martha Aguirre");
 
-        ArrayList<Materia> materias = new ArrayList<>();
-        materias.add(e1);
-        materias.add(e2);
-        materias.add(e3);
+        ArrayList<Materia> materias = Singleton.getInstance().materias;
 
         iniciarRecyclerView(materias,this,recyclerView);
 
