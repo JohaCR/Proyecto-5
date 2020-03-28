@@ -2,6 +2,9 @@ package com.example.proyectofragmentos;
 
 import android.os.Bundle;
 
+import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
+import com.example.proyectofragmentos.adaptador.Singleton;
+import com.example.proyectofragmentos.clases.Estudiante;
 import com.example.proyectofragmentos.vistas.FragmentoEstudiantes;
 import com.example.proyectofragmentos.vistas.FragmentoMaterias;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
     /**
