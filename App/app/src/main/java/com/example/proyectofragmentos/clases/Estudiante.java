@@ -1,6 +1,10 @@
 package com.example.proyectofragmentos.clases;
 
 import com.example.proyectofragmentos.MainActivity;
+import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
+import com.example.proyectofragmentos.adaptador.Singleton;
+
+import java.util.ArrayList;
 
 public class Estudiante {
 
@@ -39,15 +43,28 @@ public class Estudiante {
     }
 
     public void eliminarEstudiante(){
-        for (Materia materia: MainActivity.materias
+        Singleton.getInstance().estudiantes.remove(this);
+        for (Materia materia: Singleton.getInstance().materias
              ) {
             materia.quitarEstudiante(this);
         }
+        new AdaptadorArchivo().eliminarArchivoEstudiantes();
     }
 
     public String toString(){
 
         return this.cedula + "," + this.nombre + "," + this.apellido;
+    }
+
+    public ArrayList<Materia> getMaterias(){
+        ArrayList<Materia> materiasDelEstudiante = new ArrayList<>();
+        for (Materia materia: Singleton.getInstance().materias
+        ) {
+            if(materia.getEstudiantesInscritos().indexOf(this) != -1){
+                materiasDelEstudiante.add(materia);
+            }
+        }
+        return materiasDelEstudiante;
     }
 
 }
