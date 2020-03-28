@@ -3,12 +3,21 @@ package com.example.proyectofragmentos.vistas;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.proyectofragmentos.R;
+import com.example.proyectofragmentos.clases.Materia;
+import com.example.proyectofragmentos.adaptador.AdaptadorMateria;
+import com.example.proyectofragmentos.clases.Materia;
+import com.example.proyectofragmentos.clases.Materia;
+
+import java.util.ArrayList;
 
 
 /**
@@ -61,6 +70,34 @@ public class FragmentoMaterias extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragmento_materias, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_fragmento_materias,container, false);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_materias);
+        Materia e1 = new Materia("11111", "Programacion II", "Andres Ramirez");
+        Materia e2 = new Materia("2222", "Base de datos", "Juana Loaiza");
+        Materia e3 = new Materia("333", "Gestion de TICs", "Martha Aguirre");
+
+        ArrayList<Materia> materias = new ArrayList<>();
+        materias.add(e1);
+        materias.add(e2);
+        materias.add(e3);
+
+        iniciarRecyclerView(materias,this,recyclerView);
+
+        return rootView;
     }
+
+    public void iniciarRecyclerView(ArrayList<Materia> listaMaterias, FragmentoMaterias fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
+
+        AdaptadorMateria adaptadorMateria = new AdaptadorMateria(
+                listaMaterias,
+                fragmento,
+                recycler_view
+        );
+
+        recycler_view.setAdapter(adaptadorMateria);
+        recycler_view.setItemAnimator(new DefaultItemAnimator());
+        recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+    }
+
 }

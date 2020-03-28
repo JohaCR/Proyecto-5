@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="Código:"
         android:textStyle="bold"
@@ -21,7 +21,7 @@
         android:id="@+id/textView4"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Nombre:"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
         android:id="@+id/textView5"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         android:text="Profesor:"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewNombre"
+        android:id="@+id/textViewNombreMateria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -69,36 +69,36 @@
         android:layout_marginTop="16dp"
         android:text="Ing. Raul Perez"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNombreMateria" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/imageButtonBorrarMateria"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/estudiante"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton4"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/borrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/imageButtonEditarMateria"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/edit"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonBorrarMateria"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButtonEstudiantesDeMateria"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/estudiante"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonEditarMateria"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
