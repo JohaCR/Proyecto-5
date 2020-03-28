@@ -46,6 +46,7 @@ public class Estudiante {
     }
 
     public String toString(){
+
         return this.cedula + "," + this.nombre + "," + this.apellido;
     }
 
