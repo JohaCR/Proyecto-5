@@ -2,6 +2,9 @@ package com.example.proyectofragmentos;
 
 import android.os.Bundle;
 
+import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
+import com.example.proyectofragmentos.adaptador.Singleton;
+import com.example.proyectofragmentos.clases.Estudiante;
 import com.example.proyectofragmentos.vistas.fragmentoEstudiantes;
 import com.example.proyectofragmentos.vistas.fragmentoMaterias;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,6 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +29,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<Materia> materias;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,15 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab);
+
+        new AdaptadorArchivo().setContext(this.getApplicationContext());
+        Singleton.getInstance();
+        Materia test = new Materia("SIS516", "Programacion", "Molina");
+        Log.i("materiasxdxd", test.toString());
+        new AdaptadorArchivo().escribirArchivo("materias.csv", test.toString());
+        Estudiante test2 = new Estudiante("1805094230", "José", "Murillo");
+        new AdaptadorArchivo().escribirArchivo("estudiantes.csv", "," + test2.toString());
+        Log.i("materiasxdxd", test2.toString());
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

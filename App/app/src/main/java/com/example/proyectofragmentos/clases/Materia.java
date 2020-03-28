@@ -3,6 +3,8 @@ package com.example.proyectofragmentos.clases;
 
 
 import com.example.proyectofragmentos.MainActivity;
+import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
+import com.example.proyectofragmentos.adaptador.Singleton;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,6 @@ public class Materia {
         this.nombre = nombre;
         this.profesor = profesor;
         this.estudiantesInscritos = new ArrayList<Estudiante>();
-        MainActivity.materias.add(this);
     }
 
     public String getCodigo() {
@@ -53,7 +54,9 @@ public class Materia {
     }
 
     public void agregarEstudiante(Estudiante estudiante){
+
         estudiantesInscritos.add(estudiante);
+        new AdaptadorArchivo().escribirArchivo("estudiantes.csv", this.codigo + "," + estudiante.toString());
     }
 
     public void quitarEstudiante(Estudiante estudiante){
@@ -72,7 +75,12 @@ public class Materia {
     }
 
     public void eliminarMateria(){
-        MainActivity.materias.remove(this);
+        Singleton.getInstance().materias.remove(this);
+        new AdaptadorArchivo().eliminarArchivoMaterias();
+    }
+
+    public String toString(){
+        return this.codigo + "," + this.nombre + "," + this.profesor;
     }
     
 }
