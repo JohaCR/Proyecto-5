@@ -80,6 +80,7 @@ public class AdaptadorArchivo {
     }
 
     public ArrayList<Estudiante> getEstudiantes() {
+        leerEstudiantes(null);
         return estudiantes;
     }
 
@@ -119,12 +120,11 @@ public class AdaptadorArchivo {
 
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
                     String[] parametros = receiveString.split(",");
-                    if(parametros[0].equals(materia.getCodigo())){
-                        Estudiante estudiante = new Estudiante(parametros[1], parametros[2], parametros[3]);
-                        materia.agregarEstudiante(estudiante);
-                    }else if(parametros[0].equals("")){
-                        Estudiante estudiante = new Estudiante(parametros[1], parametros[2], parametros[3]);
+                    Estudiante estudiante = new Estudiante(parametros[1], parametros[2], parametros[3]);
+                    if(parametros[0].equals("") && materia == null){
                         this.estudiantes.add(estudiante);
+                    }else if(parametros[0].equals(materia.getCodigo())){
+                        materia.agregarEstudiante(estudiante);
                     }
                 }
                 inputStream.close();

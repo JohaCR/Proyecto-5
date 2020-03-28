@@ -1,5 +1,6 @@
 package com.example.proyectofragmentos.adaptador;
 
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,9 @@ public final class AdaptadorEstudiante extends Adapter {
     private final RecyclerView recyclerView;
 
 
-    public void onBindViewHolder(AdaptadorEstudiante.MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(AdaptadorEstudiante.MyViewHolder myViewHolder, final int position) {
 
-        Estudiante estudiante = this.listaEstudiante.get(position);
+        final Estudiante estudiante = this.listaEstudiante.get(position);
         TextView textViewCedula = myViewHolder.textViewCedula;
         textViewCedula.setText(estudiante.getCedula());
 
@@ -42,6 +43,14 @@ public final class AdaptadorEstudiante extends Adapter {
             }
         }));
 
+        ImageButton buttonBorrar = myViewHolder.buttonBorrar;
+        buttonBorrar.setOnClickListener((OnClickListener)(new OnClickListener() {
+            public final void onClick(View it) {
+                estudiante.eliminarEstudiante();
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, listaEstudiante.size());
+            }
+        }));
     }
 
     @Override
@@ -72,6 +81,7 @@ public final class AdaptadorEstudiante extends Adapter {
                 private TextView textViewNombre;
                 private TextView textViewApellido;
                 private ImageButton buttonEditar;
+                private ImageButton buttonBorrar;
 
 
         public MyViewHolder(View view) {
@@ -80,7 +90,7 @@ public final class AdaptadorEstudiante extends Adapter {
             this.textViewNombre = view.findViewById(R.id.textViewNombre);
             this.textViewApellido = view.findViewById(R.id.textViewApellido);
             this.buttonEditar = view.findViewById(R.id.imageButtonEditar);
-
+            this.buttonBorrar = view.findViewById(R.id.imageButtonBorrar);
         }
     }
 }
