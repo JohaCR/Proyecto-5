@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -113,7 +114,10 @@ public class FragmentoEstudiantes extends Fragment {
     }
 
     public void irAEditar(){
-
+        EditarEstudiante fragmentosEditarEstudiante = new EditarEstudiante();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.constraintLayoutEstudiantes,fragmentosEditarEstudiante);
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
     public void eliminar(){
