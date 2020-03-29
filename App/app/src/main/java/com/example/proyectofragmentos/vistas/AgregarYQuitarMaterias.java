@@ -172,7 +172,11 @@ public class AgregarYQuitarMaterias extends Fragment {
         materias disponibles para luego actualizar los RecyclerView.
      */
     public void quitarMateria(int indiceTomada){
-        materiasTomadas.get(indiceTomada).quitarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1)));
+        if(mParam1.equals("" + Singleton.getInstance().estudiantes.size())) {
+            materiasTomadas.get(indiceTomada).quitarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1) - 1));
+        }else{
+            materiasTomadas.get(indiceTomada).quitarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1)));
+        }
         materiasDisponibles.add(materiasTomadas.get(indiceTomada));
         materiasTomadas.remove(indiceTomada);
         adaptadorDisponibles.notifyDataSetChanged();
