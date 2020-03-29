@@ -89,7 +89,8 @@ public class FragmentoEstudiantes extends Fragment {
             estudiantes = Singleton.getInstance().materias.get(Integer.parseInt(mParam1)).getEstudiantesInscritos();
         }
 
-        iniciarRecyclerView(estudiantes, this, recyclerView);
+        boolean esLista = mParam2.equals("esLista");
+        iniciarRecyclerView(estudiantes, this, recyclerView, esLista);
 
         materias = new ArrayList<>();
 
@@ -114,12 +115,13 @@ public class FragmentoEstudiantes extends Fragment {
     /*Funcion que crea un nuevo adaptador estudiante con los siguientes atributos: la lista de estudiantes,
       el recycler view de estudiantes y el fragmento.
      * */
-    public void iniciarRecyclerView(ArrayList<Estudiante> listaEstudiantes, FragmentoEstudiantes fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
+    public void iniciarRecyclerView(ArrayList<Estudiante> listaEstudiantes, FragmentoEstudiantes fragmento, androidx.recyclerview.widget.RecyclerView recycler_view, boolean esLista){
 
         AdaptadorEstudiante adaptadorEstudiante = new AdaptadorEstudiante(
                 listaEstudiantes,
                 fragmento,
-                recycler_view
+                recycler_view,
+                esLista
         );
 
         recycler_view.setAdapter(adaptadorEstudiante);
@@ -136,7 +138,8 @@ public class FragmentoEstudiantes extends Fragment {
         AdaptadorMateria adaptadorMateria = new AdaptadorMateria(
                 listaMaterias,
                 fragmento,
-                recycler_view
+                recycler_view,
+                true
         );
 
         recycler_view.setAdapter(adaptadorMateria);
@@ -175,7 +178,7 @@ public class FragmentoEstudiantes extends Fragment {
             adaptadorMateria.setListaMateria(this.materias);
             adaptadorMateria.notifyDataSetChanged();
         }else{
-            FragmentoMaterias fragmentoMaterias = FragmentoMaterias.newInstance("" + indice, "");
+            FragmentoMaterias fragmentoMaterias = FragmentoMaterias.newInstance("" + indice, "esLista");
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.root_frame_est, fragmentoMaterias);
             fragmentTransaction.addToBackStack(null).commit();

@@ -106,6 +106,7 @@ public class Materia {
             }
         }
         estudiantesInscritos.remove(indiceAEliminar);
+        new AdaptadorArchivo().eliminarArchivoMaterias();
     }
 
     /*

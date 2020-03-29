@@ -23,10 +23,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AgregarYQuitarMaterias#newInstance} factory method to
- * create an instance of this fragment.
+/*
+    Fragmento sobre el cual se muestran dos listas: la lista de materias tomadas por un estudiante y
+    la lista de materias que aún puede tomar el estudiante.
  */
 public class AgregarYQuitarMaterias extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -79,6 +78,10 @@ public class AgregarYQuitarMaterias extends Fragment {
 
     }
 
+    /*
+        Método que hace override al método onCreateView en el que se cargan los RecyclerView así como
+        las listas que son origen de los RecyclerView.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -124,7 +127,11 @@ public class AgregarYQuitarMaterias extends Fragment {
         return rootView;
     }
 
-
+    /*
+        Funcion que crea un adaptador materias para mostrar la lista de materias tiene como atributos:
+        la lista de materias del estudiante, el fragmento que se va a usar, el recycler view de materias
+        y un booleano para validar si se trata de una materia disponible o una materia asignada.
+       * */
     public void iniciarRecyclerView(ArrayList<Materia> listaMaterias, AgregarYQuitarMaterias fragmento, androidx.recyclerview.widget.RecyclerView recycler_view, boolean sePuedeAgregar){
 
         AdaptadorAgregarMateria adaptadorMateria = new AdaptadorAgregarMateria(
@@ -144,6 +151,10 @@ public class AgregarYQuitarMaterias extends Fragment {
         }
     }
 
+    /*
+        Función que elimina la materia de la lista de materias disponibles y la agrega a la lista de
+        materias asignadas para luego actualizar los RecyclerView.
+     */
     public void agregarMateria(int indiceDisponible){
         if(mParam1.equals("" + Singleton.getInstance().estudiantes.size())){
             materiasDisponibles.get(indiceDisponible).agregarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1) - 1));
@@ -157,7 +168,8 @@ public class AgregarYQuitarMaterias extends Fragment {
     }
 
     /*
-        Función
+        Función que elimina la materia de la lista de materias asignadas y la agrega a la lista de
+        materias disponibles para luego actualizar los RecyclerView.
      */
     public void quitarMateria(int indiceTomada){
         materiasTomadas.get(indiceTomada).quitarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1)));

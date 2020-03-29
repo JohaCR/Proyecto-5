@@ -21,6 +21,7 @@ public final class AdaptadorEstudiante extends Adapter {
     private ArrayList<Estudiante> listaEstudiante;
     private final Fragment context;
     private final RecyclerView recyclerView;
+    private boolean esLista;
 
     /*
         Método del adaptador encargado de llenar todos los campos de cada elemento del RecyclerView y asignarle
@@ -39,27 +40,35 @@ public final class AdaptadorEstudiante extends Adapter {
         textViewApellido.setText(estudiante.getApellido());
 
         ImageButton buttonEditar = myViewHolder.buttonEditar;
-        buttonEditar.setOnClickListener((OnClickListener)(new OnClickListener() {
-            public final void onClick(View it) {
-                ((FragmentoEstudiantes) context).irAEditar(position);
-            }
-        }));
-
         ImageButton buttonBorrar = myViewHolder.buttonBorrar;
-        buttonBorrar.setOnClickListener((OnClickListener)(new OnClickListener() {
-            public final void onClick(View it) {
-                estudiante.eliminarEstudiante();
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, listaEstudiante.size());
-            }
-        }));
-
         ImageButton buttonMaterias = myViewHolder.buttonMaterias;
-        buttonMaterias.setOnClickListener((OnClickListener)(new OnClickListener() {
-            public final void onClick(View it) {
-                ((FragmentoEstudiantes) context).irAMaterias(estudiante, position);
-            }
-        }));
+
+        if(esLista){
+            buttonEditar.setVisibility(View.INVISIBLE);
+            buttonMaterias.setVisibility(View.INVISIBLE);
+            buttonBorrar.setVisibility(View.INVISIBLE);
+        }else{
+            buttonEditar.setOnClickListener((OnClickListener)(new OnClickListener() {
+                public final void onClick(View it) {
+                    ((FragmentoEstudiantes) context).irAEditar(position);
+                }
+            }));
+
+            buttonBorrar.setOnClickListener((OnClickListener)(new OnClickListener() {
+                public final void onClick(View it) {
+                    estudiante.eliminarEstudiante();
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, listaEstudiante.size());
+                }
+            }));
+
+            buttonMaterias.setOnClickListener((OnClickListener)(new OnClickListener() {
+                public final void onClick(View it) {
+                    ((FragmentoEstudiantes) context).irAMaterias(estudiante, position);
+                }
+            }));
+        }
+
     }
 
     /*
@@ -90,10 +99,11 @@ public final class AdaptadorEstudiante extends Adapter {
     /*
         Método constructor del adaptador.
      */
-    public AdaptadorEstudiante(ArrayList listaEstudiante, Fragment context, RecyclerView recyclerView) {
+    public AdaptadorEstudiante(ArrayList listaEstudiante, Fragment context, RecyclerView recyclerView, boolean esLista) {
         this.listaEstudiante = listaEstudiante;
         this.context = context;
         this.recyclerView = recyclerView;
+        this.esLista = esLista;
     }
 
     /*

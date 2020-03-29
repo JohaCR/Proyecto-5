@@ -19,6 +19,7 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
     private ArrayList<Materia> listaMateria;
     private final Fragment context;
     private final RecyclerView recyclerView;
+    private boolean esLista;
 
     /*
         Método del adaptador encargado de llenar todos los campos de cada elemento del RecyclerView y asignarle
@@ -36,28 +37,35 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
         textViewProfesor.setText(materia.getProfesor());
 
         ImageButton buttonEditarMateria = myViewHolder.buttonEditarMateria;
-        buttonEditarMateria.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
-            public final void onClick(View it) {
-                ((FragmentoMaterias) context).irAEditar(position);
-            }
-        }));
-
         ImageButton buttonBorrarMateria = myViewHolder.buttonBorrarMateria;
-        buttonBorrarMateria.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
-            public final void onClick(View it) {
-                materia.eliminarMateria();
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, listaMateria.size());
-            }
-        }));
-
         ImageButton buttonEstudiantes = myViewHolder.buttonEstudiantes;
-        buttonEstudiantes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((FragmentoMaterias) context).irAEstudiantes(position);
-            }
-        });
+
+        if(esLista){
+            buttonEditarMateria.setVisibility(View.INVISIBLE);
+            buttonBorrarMateria.setVisibility(View.INVISIBLE);
+            buttonEstudiantes.setVisibility(View.INVISIBLE);
+        }else {
+            buttonEditarMateria.setOnClickListener((View.OnClickListener) (new View.OnClickListener() {
+                public final void onClick(View it) {
+                    ((FragmentoMaterias) context).irAEditar(position);
+                }
+            }));
+
+            buttonBorrarMateria.setOnClickListener((View.OnClickListener) (new View.OnClickListener() {
+                public final void onClick(View it) {
+                    materia.eliminarMateria();
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, listaMateria.size());
+                }
+            }));
+
+            buttonEstudiantes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((FragmentoMaterias) context).irAEstudiantes(position);
+                }
+            });
+        }
     }
 
     /*
@@ -91,10 +99,11 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
     /*
         Método constructor del adaptador.
      */
-    public AdaptadorMateria(ArrayList listaMateria, Fragment context, RecyclerView recyclerView) {
+    public AdaptadorMateria(ArrayList listaMateria, Fragment context, RecyclerView recyclerView, boolean esLista) {
         this.listaMateria = listaMateria;
         this.context = context;
         this.recyclerView = recyclerView;
+        this.esLista = esLista;
     }
 
     /*
