@@ -20,8 +20,7 @@ import com.example.proyectofragmentos.adaptador.Singleton;
 import com.example.proyectofragmentos.clases.Estudiante;
 import com.example.proyectofragmentos.clases.Materia;
 import com.example.proyectofragmentos.adaptador.AdaptadorMateria;
-import com.example.proyectofragmentos.clases.Materia;
-import com.example.proyectofragmentos.clases.Materia;
+
 
 import java.util.ArrayList;
 
