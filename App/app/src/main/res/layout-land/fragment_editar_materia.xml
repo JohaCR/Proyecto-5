@@ -3,30 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".vistas.EditarMateria" >
+    android:layout_height="wrap_content"
+    android:isScrollContainer="true"
+    tools:context=".vistas.EditarMateria">
 
-    <TextView
-        android:id="@+id/textViewTituloEditarMateria"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editTextCodigoMateria"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="288dp"
-        android:text="Editar Materia"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="128dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="11111"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/edit"
-        app:layout_constraintEnd_toStartOf="@+id/textViewTituloEditarMateria"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <EditText
         android:id="@+id/editTextProfesor"
@@ -58,20 +52,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <EditText
-        android:id="@+id/editTextCodigoMateria"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="128dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="11111"
-        android:textSize="14sp"
+    <ImageButton
+        android:id="@+id/imageButtonCancelarEditarMateria"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/remove"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonOkEditarMateria" />
+
+    <ImageButton
+        android:id="@+id/imageButtonOkEditarMateria"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/edit"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTituloEditarMateria"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
@@ -106,24 +115,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNombreMateria" />
 
-    <ImageButton
-        android:id="@+id/imageButtonOkEditarMateria"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="123dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/check"
+    <TextView
+        android:id="@+id/textViewTituloEditarMateria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="288dp"
+        android:text="Editar Materia"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imageButtonCancelarEditarMateria"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/remove"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonOkEditarMateria" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

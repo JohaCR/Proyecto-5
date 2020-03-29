@@ -11,16 +11,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
 import com.example.proyectofragmentos.adaptador.Singleton;
 import com.example.proyectofragmentos.clases.Estudiante;
 
+import org.w3c.dom.Text;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EditarEstudiante#newInstance} factory method to
  * create an instance of this fragment.
+ */
+
+
+/*
+ Clase que maneja el layout editar estudiante, se rehusa esta clase para editar los estudiantes y para crearlos
+
  */
 public class EditarEstudiante extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -35,6 +44,7 @@ public class EditarEstudiante extends Fragment {
     EditText et_cedula;
     EditText et_apellido;
     EditText et_nombre;
+    TextView titulo;
 
 
     public EditarEstudiante() {
@@ -79,13 +89,14 @@ public class EditarEstudiante extends Fragment {
         et_nombre = rootView.findViewById(R.id.editTextNombre);
         ImageButton bt_guardar = rootView.findViewById(R.id.imageButtonOKEditarEstudiante);
         ImageButton bt_cancelar = rootView.findViewById(R.id.imageButtonCancelarEditarEstudiante);
+        titulo  = rootView.findViewById(R.id.textViewTituloEditarEstudiante);
 
         if(!mParam1.equals("")){
             final Estudiante estudiante = Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1));
             et_cedula.setText(estudiante.getCedula());
             et_apellido.setText(estudiante.getApellido());
             et_nombre.setText(estudiante.getNombre());
-
+            titulo.setText("Editar Estudiante");
             bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
                 public final void onClick(View it) {
                     editarEstudiante(estudiante);
@@ -96,7 +107,7 @@ public class EditarEstudiante extends Fragment {
             et_cedula.setText("");
             et_apellido.setText("");
             et_nombre.setText("");
-
+            titulo.setText("Crear Estudiante");
             bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
                 public final void onClick(View it) {
                     guardarEstudiante();

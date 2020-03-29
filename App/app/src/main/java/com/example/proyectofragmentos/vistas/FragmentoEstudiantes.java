@@ -1,18 +1,15 @@
 package com.example.proyectofragmentos.vistas;
 
-import android.content.Context;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,9 +145,6 @@ public class FragmentoEstudiantes extends Fragment {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-    public void eliminar(){
-
-    }
 
     public void irAMaterias(Estudiante estudiante, int indice){
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
@@ -34,6 +35,7 @@ public class EditarMateria extends Fragment {
     private EditText et_codigo;
     private EditText et_nombre;
     private EditText et_profesor;
+    private TextView titulo;
 
     public EditarMateria() {
         // Required empty public constructor
@@ -75,17 +77,16 @@ public class EditarMateria extends Fragment {
         this.et_codigo = rootView.findViewById(R.id.editTextCodigoMateria);
         this.et_nombre = rootView.findViewById(R.id.editTextNombreMateria);
         this.et_profesor = rootView.findViewById(R.id.editTextProfesor);
-
+        this.titulo = rootView.findViewById(R.id.textViewTituloEditarMateria);
         ImageButton guardar = rootView.findViewById(R.id.imageButtonOkEditarMateria);
         ImageButton cancelar = rootView.findViewById(R.id.imageButtonCancelarEditarMateria);
 
         if(!mParam1.equals("")){
             final Materia materia = Singleton.getInstance().materias.get(Integer.parseInt(mParam1));
-
             this.et_codigo.setText(materia.getCodigo());
             this.et_nombre.setText(materia.getNombre());
             this.et_profesor.setText(materia.getProfesor());
-
+            this.titulo.setText("Editar Materia");
             guardar.setOnClickListener(new View.OnClickListener(){
                 public final void onClick(View it){
                     editarMateria(materia);
@@ -96,7 +97,7 @@ public class EditarMateria extends Fragment {
             this.et_codigo.setText("");
             this.et_nombre.setText("");
             this.et_profesor.setText("");
-
+            this.titulo.setText("Crear Materia");
             guardar.setOnClickListener(new View.OnClickListener(){
                 public final void onClick(View it){
                     guardarMateria();
