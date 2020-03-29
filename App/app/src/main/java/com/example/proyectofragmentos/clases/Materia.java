@@ -105,8 +105,10 @@ public class Materia {
                 indiceAEliminar = this.estudiantesInscritos.indexOf(estudianteAEliminar);
             }
         }
-        estudiantesInscritos.remove(indiceAEliminar);
-        new AdaptadorArchivo().eliminarArchivoMaterias();
+        if(indiceAEliminar != -1){
+            estudiantesInscritos.remove(indiceAEliminar);
+            new AdaptadorArchivo().eliminarArchivoMaterias();
+        }
     }
 
     /*
