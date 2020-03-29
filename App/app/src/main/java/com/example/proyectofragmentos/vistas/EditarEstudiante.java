@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.proyectofragmentos.AgregarYQuitarMaterias;
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
 import com.example.proyectofragmentos.adaptador.Singleton;
@@ -146,6 +147,13 @@ public class EditarEstudiante extends Fragment {
         estudiante.setApellido(et_apellido.getText().toString());
         estudiante.setNombre(et_nombre.getText().toString());
         new AdaptadorArchivo().eliminarArchivoMaterias();
+    }
+
+    public void irAMateriasParaInscribirse(){
+        AgregarYQuitarMaterias inscribirseEnMaterias = AgregarYQuitarMaterias.newInstance("","");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.root_frame_est,inscribirseEnMaterias);
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
 }
