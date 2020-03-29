@@ -1,3 +1,5 @@
+package com.example.proyectofragmentos.recycler_views;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.Singleton;
+
+/*
+En esta clase se define el layout que va a usar el recycler view para agregar y quitar materias, que sera materia_agregar_ly
+* */
 
 public class MateriaAgregarRV extends AppCompatActivity {
 
@@ -21,6 +27,9 @@ public class MateriaAgregarRV extends AppCompatActivity {
 
     }
 
+    /*
+   Funcion que  permite llenar los datos del layout materia_agregar_ly
+   * */
     public void llenarInformacionMateria(int idMateria) {
 
         TextView codigo = findViewById(R.id.textViewCodigoAgregar);

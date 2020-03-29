@@ -25,9 +25,9 @@ import com.example.proyectofragmentos.clases.Estudiante;
 
 
 /*
- Clase que maneja el layout editar estudiante, se rehusa esta clase para editar los estudiantes y para crearlos
-
+ Fragmento que maneja el layout editar estudiante, se rehusa esta clase para editar los estudiantes y para crearlos
  */
+
 public class EditarEstudiante extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,6 +66,9 @@ public class EditarEstudiante extends Fragment {
         return fragment;
     }
 
+    /*
+     * Código autogenerado, que hace un override del método OnCreate
+     * */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,10 @@ public class EditarEstudiante extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+    /*
+    * Código autogenerado, en el que se establecen los valores que tendran los elementos del layout
+    * */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,6 +95,8 @@ public class EditarEstudiante extends Fragment {
         ImageButton bt_cancelar = rootView.findViewById(R.id.imageButtonCancelarEditarEstudiante);
         titulo  = rootView.findViewById(R.id.textViewTituloEditarEstudiante);
 
+        /*Condicional que define que valores tendran los elementos del layout dependiendo
+        de si se va a editar un estudiante o a crear un estudiante.*/
         if(!mParam1.equals("")){
             final Estudiante estudiante = Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1));
             et_cedula.setText(estudiante.getCedula());
@@ -113,6 +122,7 @@ public class EditarEstudiante extends Fragment {
             }));
         }
 
+        /*Botón que permite cancelar la creación o edición y regresar al fragmento anterior */
         bt_cancelar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
             public final void onClick(View it){
                 irAListaEstudiantes();
@@ -122,6 +132,10 @@ public class EditarEstudiante extends Fragment {
         return rootView;
     }
 
+
+    /*Funcion que permite reemplazar el fragmento actual EditarEstudiante por el fragmento
+    FragmentoEstudiantes para volver a la lista de estudiantes.
+    * */
     public void irAListaEstudiantes(){
         FragmentoEstudiantes fragmentoEstudiantes = FragmentoEstudiantes.newInstance("", "");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -129,6 +143,7 @@ public class EditarEstudiante extends Fragment {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
+    /*Funcion que permite guardar los datos de un nuevo estudiante*/
     public void guardarEstudiante(){
         String cedula = et_cedula.getText().toString();
         String apellido = et_apellido.getText().toString();
@@ -138,12 +153,16 @@ public class EditarEstudiante extends Fragment {
         Singleton.getInstance().estudiantes.add(nuevo_estudiante);
     }
 
+    /*Funcion que permite guardar los datos editados de un estudiante */
     public void editarEstudiante(Estudiante estudiante){
         estudiante.setCedula(et_cedula.getText().toString());
         estudiante.setApellido(et_apellido.getText().toString());
         estudiante.setNombre(et_nombre.getText().toString());
         new AdaptadorArchivo().eliminarArchivoMaterias();
     }
+
+    
+    /*Funcion que permite ir al fragmento en el cual se pueden agregar o quitar materias*/
 
     public void irAMateriasParaInscribirse(int indice){
         AgregarYQuitarMaterias inscribirseEnMaterias = AgregarYQuitarMaterias.newInstance("" + indice,"");

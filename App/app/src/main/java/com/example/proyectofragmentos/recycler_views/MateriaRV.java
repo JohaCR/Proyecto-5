@@ -1,4 +1,4 @@
-package com.example.proyectofragmentos;
+package com.example.proyectofragmentos.recycler_views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.Singleton;
 
+/*
+En esta clase se define el layout que va a usar el recycler view de materias, que sera materia_ly
+* */
 public class MateriaRV extends AppCompatActivity {
 
     @Override
@@ -19,9 +23,11 @@ public class MateriaRV extends AppCompatActivity {
         setContentView(R.layout.materia_ly);
         int idMateria = intent.getIntExtra("idMateria", 0);
         llenarInformacionMateria(idMateria);
-
     }
 
+    /*
+    Funcion que  permite llenar los datos del layout materia_ly
+    * */
     public void llenarInformacionMateria(int idMateria) {
 
         TextView codigo = findViewById(R.id.textViewCodigo);
@@ -59,12 +65,8 @@ public class MateriaRV extends AppCompatActivity {
 
     }
 
-    private void irAEditar(){
+    private void irAEditar(){}
 
-    }
-
-    private void irAMaterias(){
-
-    }
+    private void irAMaterias(){}
 
 }

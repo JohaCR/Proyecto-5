@@ -1,4 +1,4 @@
-package com.example.proyectofragmentos;
+package com.example.proyectofragmentos.recycler_views;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.Singleton;
 import com.example.proyectofragmentos.clases.Estudiante;
 
+
+/*
+En esta clase se define el layout que va a usar el recycler view de estudiantes, que sera estudiante_ly
+* */
 public class EstudianteRV extends AppCompatActivity {
 
     @Override
@@ -25,6 +30,9 @@ public class EstudianteRV extends AppCompatActivity {
 
     }
 
+    /*
+    Funcion que  permite llenar los datos del layout estudiante_ly
+    * */
     public void llenarInformacionEstudiante(int idEstudiante) {
 
         TextView cedula = findViewById(R.id.textViewCedula);
@@ -62,13 +70,9 @@ public class EstudianteRV extends AppCompatActivity {
 
     }
 
-    private void irAEditar(){
+    private void irAEditar(){}
 
-    }
-
-    private void irAMaterias(){
-
-    }
+    private void irAMaterias(){}
 
 
 
