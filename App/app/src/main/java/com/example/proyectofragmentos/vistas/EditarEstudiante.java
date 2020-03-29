@@ -25,7 +25,7 @@ import com.example.proyectofragmentos.clases.Estudiante;
 
 
 /*
- Fragmento que maneja el layout editar estudiante, se rehusa esta clase para editar los estudiantes y para crearlos
+ Fragmento que maneja el layout editar estudiante, se reusa esta clase para editar los estudiantes y para crearlos
  */
 
 public class EditarEstudiante extends Fragment {

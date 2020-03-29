@@ -23,7 +23,7 @@ import com.example.proyectofragmentos.clases.Materia;
  * create an instance of this fragment.
  */
 /*
- Fragmento que maneja el layout editar materia, se rehusa esta clase para editar las materias y para crearlos
+ Fragmento que maneja el layout editar materia, se reusa esta clase para editar las materias y para crearlos
  */
 public class EditarMateria extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
