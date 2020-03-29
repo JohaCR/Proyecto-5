@@ -24,14 +24,14 @@ public class MateriaRV extends AppCompatActivity {
 
     public void llenarInformacionMateria(int idMateria) {
 
-        TextView cedula = findViewById(R.id.textViewCedula);
-        cedula.setText(Singleton.getInstance().materias.get(idMateria).getCodigo());
+        TextView codigo = findViewById(R.id.textViewCodigo);
+        codigo.setText(Singleton.getInstance().materias.get(idMateria).getCodigo());
 
-        TextView nombre = findViewById(R.id.textViewNombre);
-        nombre.setText(Singleton.getInstance().materias.get(idMateria).getNombre());
+        TextView nombreMateria = findViewById(R.id.textViewNombreMateria);
+        nombreMateria.setText(Singleton.getInstance().materias.get(idMateria).getNombre());
 
-        TextView apellido = findViewById(R.id.textViewApellido);
-        apellido.setText(Singleton.getInstance().materias.get(idMateria).getProfesor());
+        TextView profesor = findViewById(R.id.textViewProfesor);
+        profesor.setText(Singleton.getInstance().materias.get(idMateria).getProfesor());
 
         ImageButton editar = findViewById(R.id.imageButtonEditar);
         editar.setOnClickListener(new View.OnClickListener() {

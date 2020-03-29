@@ -70,9 +70,6 @@ public class FragmentoEstudiantes extends Fragment {
         this.container = container;
         View rootView = inflater.inflate(R.layout.fragment_fragmento_estudiantes,container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_estudiantes);
-//        Estudiante e1 = new Estudiante("11111", "Ana", "ramirez");
-//        Estudiante e2 = new Estudiante("2222", "Pedro", "Jimenez");
-//        Estudiante e3 = new Estudiante("333", "Maria", "Lopez");
 
         ArrayList<Estudiante> estudiantes = new ArrayList<>();
 
