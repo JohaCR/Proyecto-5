@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -19,8 +20,8 @@ import com.example.proyectofragmentos.vistas.FragmentoEstudiantes;
 import java.util.ArrayList;
 
 public final class AdaptadorEstudiante extends Adapter {
-    private final ArrayList<Estudiante> listaEstudiante;
-    private final FragmentoEstudiantes context;
+    private ArrayList<Estudiante> listaEstudiante;
+    private final Fragment context;
     private final RecyclerView recyclerView;
 
 
@@ -39,7 +40,7 @@ public final class AdaptadorEstudiante extends Adapter {
         ImageButton buttonEditar = myViewHolder.buttonEditar;
         buttonEditar.setOnClickListener((OnClickListener)(new OnClickListener() {
             public final void onClick(View it) {
-                context.irAEditar();
+                ((FragmentoEstudiantes) context).irAEditar(position);
             }
         }));
 
@@ -55,7 +56,7 @@ public final class AdaptadorEstudiante extends Adapter {
         ImageButton buttonMaterias = myViewHolder.buttonMaterias;
         buttonMaterias.setOnClickListener((OnClickListener)(new OnClickListener() {
             public final void onClick(View it) {
-                context.irAMaterias(estudiante);
+                ((FragmentoEstudiantes) context).irAMaterias(estudiante, position);
             }
         }));
     }
@@ -76,10 +77,14 @@ public final class AdaptadorEstudiante extends Adapter {
 
 
 
-    public AdaptadorEstudiante(ArrayList listaEstudiante, FragmentoEstudiantes context, RecyclerView recyclerView) {
+    public AdaptadorEstudiante(ArrayList listaEstudiante, Fragment context, RecyclerView recyclerView) {
         this.listaEstudiante = listaEstudiante;
         this.context = context;
         this.recyclerView = recyclerView;
+    }
+
+    public void setListaEstudiantes(ArrayList<Estudiante> listaEstudiante){
+        this.listaEstudiante =  listaEstudiante;
     }
 
 

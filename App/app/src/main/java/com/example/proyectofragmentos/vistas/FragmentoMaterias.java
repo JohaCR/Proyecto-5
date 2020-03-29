@@ -1,8 +1,10 @@
 package com.example.proyectofragmentos.vistas;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.proyectofragmentos.R;
+import com.example.proyectofragmentos.adaptador.AdaptadorEstudiante;
 import com.example.proyectofragmentos.adaptador.Singleton;
+import com.example.proyectofragmentos.clases.Estudiante;
 import com.example.proyectofragmentos.clases.Materia;
 import com.example.proyectofragmentos.adaptador.AdaptadorMateria;
 import com.example.proyectofragmentos.clases.Materia;
@@ -35,6 +40,9 @@ public class FragmentoMaterias extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ArrayList<Estudiante> estudiantes;
+    private AdaptadorEstudiante adaptadorEstudiante;
 
     public FragmentoMaterias() {
         // Required empty public constructor
@@ -73,10 +81,29 @@ public class FragmentoMaterias extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_fragmento_materias,container, false);
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_materias);
-
-        ArrayList<Materia> materias = Singleton.getInstance().materias;
-
+        ArrayList<Materia> materias = new ArrayList<>();
+        if(mParam1.equals("")) {
+             materias = Singleton.getInstance().materias;
+        }else{
+            materias = Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1)).getMaterias();
+        }
         iniciarRecyclerView(materias,this,recyclerView);
+
+        estudiantes = new ArrayList<>();
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            RecyclerView recyclerViewEstudiantes = (RecyclerView) rootView.findViewById(R.id.rv_land_estudiantes);
+            iniciarRecyclerViewEstudiantes(this.estudiantes, this, recyclerViewEstudiantes);
+        }
+
+        ImageButton btnCrear = rootView.findViewById(R.id.imageButtonAgregarMateria);
+
+        btnCrear.setOnClickListener((View.OnClickListener) (new View.OnClickListener() {
+            public final void onClick(View it){
+                irANuevo();
+            }
+        }));
 
         return rootView;
     }
@@ -93,6 +120,49 @@ public class FragmentoMaterias extends Fragment {
         recycler_view.setItemAnimator(new DefaultItemAnimator());
         recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+    }
+
+    public void iniciarRecyclerViewEstudiantes(ArrayList<Estudiante> listaEstudiantes, FragmentoMaterias fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
+
+        AdaptadorEstudiante adaptadorEstudiante = new AdaptadorEstudiante(
+                listaEstudiantes,
+                fragmento,
+                recycler_view
+        );
+
+        recycler_view.setAdapter(adaptadorEstudiante);
+        recycler_view.setItemAnimator(new DefaultItemAnimator());
+        recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        this.adaptadorEstudiante = adaptadorEstudiante;
+    }
+
+    public void irANuevo(){
+        EditarMateria fragmentosEditarMateria = EditarMateria.newInstance("","");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.root_frame_mat, fragmentosEditarMateria);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    public void irAEditar(int indice){
+        EditarMateria fragmentosEditarMateria = EditarMateria.newInstance("" + indice,"");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.root_frame_mat, fragmentosEditarMateria);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    public void irAEstudiantes(int indice){
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            this.estudiantes = Singleton.getInstance().materias.get(indice).getEstudiantesInscritos();
+            adaptadorEstudiante.setListaEstudiantes(this.estudiantes);
+            adaptadorEstudiante.notifyDataSetChanged();
+        }else{
+            FragmentoEstudiantes fragmentoEstudiantes = FragmentoEstudiantes.newInstance("" + indice, "");
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.root_frame_mat, fragmentoEstudiantes);
+            fragmentTransaction.addToBackStack(null).commit();
+        }
     }
 
 }

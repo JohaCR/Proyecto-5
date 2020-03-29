@@ -40,7 +40,7 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
         ImageButton buttonEditarMateria = myViewHolder.buttonEditarMateria;
         buttonEditarMateria.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
             public final void onClick(View it) {
-                //context.irAEditar();
+                ((FragmentoMaterias) context).irAEditar(position);
             }
         }));
 
@@ -52,6 +52,14 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
                 notifyItemRangeChanged(position, listaMateria.size());
             }
         }));
+
+        ImageButton buttonEstudiantes = myViewHolder.buttonEstudiantes;
+        buttonEstudiantes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentoMaterias) context).irAEstudiantes(position);
+            }
+        });
     }
 
     @Override
@@ -90,6 +98,7 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
         private TextView textViewProfesor;
         private ImageButton buttonEditarMateria;
         private ImageButton buttonBorrarMateria;
+        private ImageButton buttonEstudiantes;
 
         public MyViewHolder(View view) {
             super(view);
@@ -98,6 +107,7 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
             this.textViewProfesor = view.findViewById(R.id.textViewProfesor);
             this.buttonEditarMateria = view.findViewById(R.id.imageButtonEditarMateria);
             this.buttonBorrarMateria = view.findViewById(R.id.imageButtonBorrarMateria);
+            this.buttonEstudiantes = view.findViewById(R.id.imageButtonEstudiantesDeMateria);
         }
     }
 }

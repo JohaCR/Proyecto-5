@@ -5,8 +5,10 @@ import android.os.Bundle;
 import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
 import com.example.proyectofragmentos.adaptador.Singleton;
 import com.example.proyectofragmentos.clases.Estudiante;
+import com.example.proyectofragmentos.vistas.EstudianteTab;
 import com.example.proyectofragmentos.vistas.FragmentoEstudiantes;
 import com.example.proyectofragmentos.vistas.FragmentoMaterias;
+import com.example.proyectofragmentos.vistas.MateriaTab;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -107,10 +109,10 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = null;
             switch (position) {
                 case 0:
-                    fragment = new FragmentoEstudiantes();
+                    fragment = new EstudianteTab();
                     break;
                 case 1:
-                    fragment = new FragmentoMaterias();
+                    fragment = new MateriaTab();
                     break;
             }
             return fragment;

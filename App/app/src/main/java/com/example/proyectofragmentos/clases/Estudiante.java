@@ -18,6 +18,10 @@ public class Estudiante {
         this.apellido = apellido;
     }
 
+    public void guardarEnArchivo(){
+        new  AdaptadorArchivo().escribirArchivo("estudiantes.csv", "," + this.toString());
+    }
+
     public String getCedula() {
         return cedula;
     }

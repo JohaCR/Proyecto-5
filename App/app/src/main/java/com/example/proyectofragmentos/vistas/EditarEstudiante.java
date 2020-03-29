@@ -3,12 +3,19 @@ package com.example.proyectofragmentos.vistas;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.proyectofragmentos.R;
+import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
+import com.example.proyectofragmentos.adaptador.Singleton;
+import com.example.proyectofragmentos.clases.Estudiante;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +31,11 @@ public class EditarEstudiante extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    EditText et_cedula;
+    EditText et_apellido;
+    EditText et_nombre;
+
 
     public EditarEstudiante() {
         // Required empty public constructor
@@ -60,6 +72,69 @@ public class EditarEstudiante extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_editar_estudiante, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_editar_estudiante, container, false);
+
+        et_cedula = rootView.findViewById(R.id.editTextCedula);
+        et_apellido = rootView.findViewById(R.id.editTextApellido);
+        et_nombre = rootView.findViewById(R.id.editTextNombre);
+        ImageButton bt_guardar = rootView.findViewById(R.id.imageButtonOKEditarEstudiante);
+        ImageButton bt_cancelar = rootView.findViewById(R.id.imageButtonCancelarEditarEstudiante);
+
+        if(!mParam1.equals("")){
+            final Estudiante estudiante = Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1));
+            et_cedula.setText(estudiante.getCedula());
+            et_apellido.setText(estudiante.getApellido());
+            et_nombre.setText(estudiante.getNombre());
+
+            bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
+                public final void onClick(View it) {
+                    editarEstudiante(estudiante);
+                    irAListaEstudiantes();
+                }
+            }));
+        }else{
+            et_cedula.setText("");
+            et_apellido.setText("");
+            et_nombre.setText("");
+
+            bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
+                public final void onClick(View it) {
+                    guardarEstudiante();
+                    irAListaEstudiantes();
+                }
+            }));
+        }
+
+        bt_cancelar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
+            public final void onClick(View it){
+                irAListaEstudiantes();
+            }
+        }));
+
+        return rootView;
     }
+
+    public void irAListaEstudiantes(){
+        FragmentoEstudiantes fragmentoEstudiantes = FragmentoEstudiantes.newInstance("", "");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.root_frame_est, fragmentoEstudiantes);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    public void guardarEstudiante(){
+        String cedula = et_cedula.getText().toString();
+        String apellido = et_apellido.getText().toString();
+        String nombre = et_nombre.getText().toString();
+        Estudiante nuevo_estudiante = new Estudiante(cedula, nombre, apellido);
+        nuevo_estudiante.guardarEnArchivo();
+        Singleton.getInstance().estudiantes.add(nuevo_estudiante);
+    }
+
+    public void editarEstudiante(Estudiante estudiante){
+        estudiante.setCedula(et_cedula.getText().toString());
+        estudiante.setApellido(et_apellido.getText().toString());
+        estudiante.setNombre(et_nombre.getText().toString());
+        new AdaptadorArchivo().eliminarArchivoMaterias();
+    }
+
 }

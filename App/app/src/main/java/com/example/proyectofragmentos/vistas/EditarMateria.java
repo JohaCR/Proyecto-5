@@ -3,12 +3,18 @@ package com.example.proyectofragmentos.vistas;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.proyectofragmentos.R;
+import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
+import com.example.proyectofragmentos.adaptador.Singleton;
+import com.example.proyectofragmentos.clases.Materia;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +30,10 @@ public class EditarMateria extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private EditText et_codigo;
+    private EditText et_nombre;
+    private EditText et_profesor;
 
     public EditarMateria() {
         // Required empty public constructor
@@ -60,6 +70,72 @@ public class EditarMateria extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragmento_estudiantes, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_editar_materia, container, false);
+
+        this.et_codigo = rootView.findViewById(R.id.editTextCodigoMateria);
+        this.et_nombre = rootView.findViewById(R.id.editTextNombreMateria);
+        this.et_profesor = rootView.findViewById(R.id.editTextProfesor);
+
+        ImageButton guardar = rootView.findViewById(R.id.imageButtonOkEditarMateria);
+        ImageButton cancelar = rootView.findViewById(R.id.imageButtonCancelarEditarMateria);
+
+        if(!mParam1.equals("")){
+            final Materia materia = Singleton.getInstance().materias.get(Integer.parseInt(mParam1));
+
+            this.et_codigo.setText(materia.getCodigo());
+            this.et_nombre.setText(materia.getNombre());
+            this.et_profesor.setText(materia.getProfesor());
+
+            guardar.setOnClickListener(new View.OnClickListener(){
+                public final void onClick(View it){
+                    editarMateria(materia);
+                    regresarAMaterias();
+                }
+            });
+        }else{
+            this.et_codigo.setText("");
+            this.et_nombre.setText("");
+            this.et_profesor.setText("");
+
+            guardar.setOnClickListener(new View.OnClickListener(){
+                public final void onClick(View it){
+                    guardarMateria();
+                    regresarAMaterias();
+                }
+            });
+        }
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                regresarAMaterias();
+            }
+        });
+
+        return rootView;
     }
+
+    public void editarMateria(Materia materia){
+        materia.setCodigo(this.et_codigo.getText().toString());
+        materia.setNombre(this.et_nombre.getText().toString());
+        materia.setProfesor(this.et_profesor.getText().toString());
+        new AdaptadorArchivo().eliminarArchivoMaterias();
+    }
+
+    public void guardarMateria(){
+        String codigo = this.et_codigo.getText().toString();
+        String nombre = this.et_nombre.getText().toString();
+        String profesor = this.et_profesor.getText().toString();
+        Materia nuevaMateria = new Materia(codigo,nombre,profesor);
+        nuevaMateria.guardarEnArchivo();
+        Singleton.getInstance().materias.add(nuevaMateria);
+    }
+
+    public void regresarAMaterias(){
+        FragmentoMaterias fragmentoMaterias = FragmentoMaterias.newInstance("", "");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.root_frame_mat, fragmentoMaterias);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
 }

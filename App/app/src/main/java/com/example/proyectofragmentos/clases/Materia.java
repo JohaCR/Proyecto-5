@@ -23,6 +23,10 @@ public class Materia {
         this.estudiantesInscritos = new ArrayList<Estudiante>();
     }
 
+    public void guardarEnArchivo(){
+        new AdaptadorArchivo().escribirArchivo("materias.csv", this.toString());
+    }
+
     public String getCodigo() {
         return codigo;
     }

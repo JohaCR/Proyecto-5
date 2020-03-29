@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.AdaptadorEstudiante;
@@ -56,7 +57,14 @@ public class FragmentoEstudiantes extends Fragment {
 
     }
 
-
+    public static FragmentoEstudiantes newInstance(String param1, String param2) {
+        FragmentoEstudiantes fragment = new FragmentoEstudiantes();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,18 +77,31 @@ public class FragmentoEstudiantes extends Fragment {
 //        Estudiante e2 = new Estudiante("2222", "Pedro", "Jimenez");
 //        Estudiante e3 = new Estudiante("333", "Maria", "Lopez");
 
-        ArrayList<Estudiante> estudiantes = Singleton.getInstance().estudiantes;
+        ArrayList<Estudiante> estudiantes = new ArrayList<>();
+
+        if(mParam1.equals("")){
+            estudiantes = Singleton.getInstance().estudiantes;
+        }else{
+            estudiantes = Singleton.getInstance().materias.get(Integer.parseInt(mParam1)).getEstudiantesInscritos();
+        }
 
         iniciarRecyclerView(estudiantes, this, recyclerView);
 
-        materias = Singleton.getInstance().materias;
+        materias = new ArrayList<>();
 
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.i("testingxd", "entre aquí");
             recyclerViewMaterias = (RecyclerView) rootView.findViewById(R.id.rv_land_materias);
             iniciarRecyclerViewMaterias(this.materias, this, recyclerViewMaterias);
         }
+
+        ImageButton btnAgregar = rootView.findViewById(R.id.imageButtonAgregarEstudiante);
+
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            public final void onClick(View it) {
+                irANuevo();
+            }
+        });
 
         return rootView;
     }
@@ -113,10 +134,17 @@ public class FragmentoEstudiantes extends Fragment {
         this.adaptadorMateria = adaptadorMateria;
     }
 
-    public void irAEditar(){
-        EditarEstudiante fragmentosEditarEstudiante = new EditarEstudiante();
+    public void irAEditar(int indice){
+        EditarEstudiante fragmentosEditarEstudiante = EditarEstudiante.newInstance("" + indice,"");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.constraintLayoutEstudiantes,fragmentosEditarEstudiante);
+        fragmentTransaction.replace(R.id.root_frame_est, fragmentosEditarEstudiante);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    public void irANuevo(){
+        EditarEstudiante fragmentosEditarEstudiante = EditarEstudiante.newInstance("","");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.root_frame_est, fragmentosEditarEstudiante);
         fragmentTransaction.addToBackStack(null).commit();
     }
 
@@ -124,7 +152,7 @@ public class FragmentoEstudiantes extends Fragment {
 
     }
 
-    public void irAMaterias(Estudiante estudiante){
+    public void irAMaterias(Estudiante estudiante, int indice){
 
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -132,7 +160,10 @@ public class FragmentoEstudiantes extends Fragment {
             adaptadorMateria.setListaMateria(this.materias);
             adaptadorMateria.notifyDataSetChanged();
         }else{
-            Log.i("testingxd", "yendo a materia en vertical");
+            FragmentoMaterias fragmentoMaterias = FragmentoMaterias.newInstance("" + indice, "");
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.root_frame_est, fragmentoMaterias);
+            fragmentTransaction.addToBackStack(null).commit();
         }
 
     }
