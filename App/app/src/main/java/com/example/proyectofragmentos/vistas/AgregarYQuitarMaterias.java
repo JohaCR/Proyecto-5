@@ -1,4 +1,4 @@
-package com.example.proyectofragmentos;
+package com.example.proyectofragmentos.vistas;
 
 import android.os.Bundle;
 
@@ -10,12 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.AdaptadorAgregarMateria;
-import com.example.proyectofragmentos.adaptador.AdaptadorEstudiante;
-import com.example.proyectofragmentos.clases.Estudiante;
 import com.example.proyectofragmentos.clases.Materia;
-import com.example.proyectofragmentos.vistas.FragmentoEstudiantes;
-import com.example.proyectofragmentos.vistas.FragmentoMaterias;
 
 import java.util.ArrayList;
 

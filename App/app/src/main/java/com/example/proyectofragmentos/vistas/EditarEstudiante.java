@@ -8,18 +8,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.proyectofragmentos.AgregarYQuitarMaterias;
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
 import com.example.proyectofragmentos.adaptador.Singleton;
 import com.example.proyectofragmentos.clases.Estudiante;
-
-import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,7 +97,7 @@ public class EditarEstudiante extends Fragment {
             bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
                 public final void onClick(View it) {
                     editarEstudiante(estudiante);
-                    irAListaEstudiantes();
+                    irAMateriasParaInscribirse();
                 }
             }));
         }else{
@@ -112,7 +108,7 @@ public class EditarEstudiante extends Fragment {
             bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
                 public final void onClick(View it) {
                     guardarEstudiante();
-                    irAListaEstudiantes();
+                    irAMateriasParaInscribirse();
                 }
             }));
         }
