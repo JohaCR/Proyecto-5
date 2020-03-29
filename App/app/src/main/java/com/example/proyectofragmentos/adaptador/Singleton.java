@@ -1,12 +1,14 @@
 package com.example.proyectofragmentos.adaptador;
 
-import android.content.Context;
-
 import com.example.proyectofragmentos.clases.Estudiante;
 import com.example.proyectofragmentos.clases.Materia;
 
 import java.util.ArrayList;
 
+/*
+    Implementación de un Singleton que guarda una lista de materias y una de estudiantes, que
+    serán compartidas en toda la aplicación.
+ */
 public final class Singleton {
 
     private static Singleton instancia;

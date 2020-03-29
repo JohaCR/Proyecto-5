@@ -1,6 +1,5 @@
 package com.example.proyectofragmentos.adaptador;
 
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
@@ -24,7 +22,10 @@ public final class AdaptadorEstudiante extends Adapter {
     private final Fragment context;
     private final RecyclerView recyclerView;
 
-
+    /*
+        Método del adaptador encargado de llenar todos los campos de cada elemento del RecyclerView y asignarle
+        la funcionalidad correspondiente a sus botones.
+     */
     public void onBindViewHolder(AdaptadorEstudiante.MyViewHolder myViewHolder, final int position) {
 
         final Estudiante estudiante = this.listaEstudiante.get(position);
@@ -61,33 +62,51 @@ public final class AdaptadorEstudiante extends Adapter {
         }));
     }
 
+    /*
+        Override del método onCreateViewHolder en el que se define el layout que va a usar cada elemento
+        del RecyclerView.
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.estudiante_ly, parent, false);
         return new MyViewHolder(view);
     }
 
+    /*
+        Override del método onBindViewHolder en el que se llama al método personalizado onBindViewHolder
+        para llenar el layout de cada elemento del RecyclerView.
+     */
     public void onBindViewHolder(ViewHolder var1, int var2) {
         this.onBindViewHolder((AdaptadorEstudiante.MyViewHolder)var1, var2);
     }
 
+    /*
+        Override del método getItemCount que retorna el tamaño del DataSource del RecyclerView.
+     */
     public int getItemCount() {
         return this.listaEstudiante.size();
     }
 
-
-
+    /*
+        Método constructor del adaptador.
+     */
     public AdaptadorEstudiante(ArrayList listaEstudiante, Fragment context, RecyclerView recyclerView) {
         this.listaEstudiante = listaEstudiante;
         this.context = context;
         this.recyclerView = recyclerView;
     }
 
+    /*
+        Método Setter del ArrayList<Estudiante> listaEstudiante del adaptador.
+     */
     public void setListaEstudiantes(ArrayList<Estudiante> listaEstudiante){
         this.listaEstudiante =  listaEstudiante;
     }
 
-
+    /*
+        Clase ViewHolder que guarda una referencia a los elementos del layout que va a tener cada elemento
+        del RecyclerView.
+     */
     public final class MyViewHolder extends ViewHolder {
                 private TextView textViewCedula;
                 private TextView textViewNombre;

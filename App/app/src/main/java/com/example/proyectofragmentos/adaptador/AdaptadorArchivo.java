@@ -3,7 +3,6 @@ package com.example.proyectofragmentos.adaptador;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.proyectofragmentos.MainActivity;
 import com.example.proyectofragmentos.clases.Estudiante;
 import com.example.proyectofragmentos.clases.Materia;
 
@@ -27,10 +26,16 @@ public class AdaptadorArchivo {
         this.estudiantes = new ArrayList<>();
     }
 
+    /*
+        Guarda el contaxto de la aplicación, necesario para poder manejar (leer y escribir) archivos.
+    */
     public void setContext(Context context){
         this.context = context;
     }
 
+    /*
+        Elimina directamente el archivo de estudiantes, lo vuelve a crear y lo escribe con los datos que encuentran en el Singleton.
+     */
     public void eliminarArchivoEstudiantes(){
         String nombreArchivo = "estudiantes.csv";
         File dir = context.getFilesDir();
@@ -49,6 +54,9 @@ public class AdaptadorArchivo {
         }
     }
 
+    /*
+        Elimina directamente el archivo de materias, lo vuelve a crear y lo escribe con los datos que encuentran en el Singleton.
+     */
     public void eliminarArchivoMaterias(){
         String nombreArchivo = "materias.csv";
         File dir = context.getFilesDir();
@@ -62,8 +70,10 @@ public class AdaptadorArchivo {
         eliminarArchivoEstudiantes();
     }
 
+    /*
+        Escribe en el archivo cuyo nombre de archivo es pasado como parámetro, si el archivo no existe, lo crea.
+     */
     public void escribirArchivo(String nombreArchivo, String datos){
-        Log.i("testingxd", "escribiendo lalala");
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(nombreArchivo, Context.MODE_APPEND));
             outputStreamWriter.append(datos);
@@ -75,16 +85,26 @@ public class AdaptadorArchivo {
         }
     }
 
+    /*
+        Retorna las materias que fueron leídas del archivo en una lista de materias.
+     */
     public ArrayList<Materia> getMaterias() {
         leerMaterias();
         return materias;
     }
 
+    /*
+        Retorna los estudiantes que fueron leídos del archivo en una lista de estudiantes.
+     */
     public ArrayList<Estudiante> getEstudiantes() {
         leerEstudiantes(null);
         return estudiantes;
     }
 
+    /*
+        Lee el archivo de materias, crea un objeto Materia, lee en el archivo de estudiantes en busca de los estudiantes inscritos
+        y los agrega a su lista de estudiantes inscritos. Finalmente guarda la materia en la lista del Singleton.
+     */
     private void leerMaterias(){
         try {
             InputStream inputStream = context.openFileInput("materias.csv");
@@ -110,6 +130,10 @@ public class AdaptadorArchivo {
         }
     }
 
+    /*
+        Lee el archivo de estudiantes, crea un objeto Estudiante y lo agrega a la lista de estudiantes del Singleton o
+        a la lista de estudiantes inscritos de un materia según los parámetros pasados.
+     */
     private void leerEstudiantes(Materia materia){
         try {
             InputStream inputStream = context.openFileInput("estudiantes.csv");

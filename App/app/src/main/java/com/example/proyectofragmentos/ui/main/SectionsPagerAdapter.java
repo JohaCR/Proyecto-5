@@ -10,9 +10,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.proyectofragmentos.R;
 
-/**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
+/*
+    Código autogenerado por AndroidStudio al crear una TabbedActivity.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

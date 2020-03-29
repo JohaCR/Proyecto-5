@@ -14,9 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.proyectofragmentos.R;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+/*
+    Código autogenerado por AndroidStudio al crear una TabbedActivity.
+*/
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
