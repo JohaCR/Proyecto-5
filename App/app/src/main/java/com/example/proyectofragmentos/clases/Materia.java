@@ -2,6 +2,8 @@ package com.example.proyectofragmentos.clases;
 
 
 
+import android.util.Log;
+
 import com.example.proyectofragmentos.MainActivity;
 import com.example.proyectofragmentos.adaptador.AdaptadorArchivo;
 import com.example.proyectofragmentos.adaptador.Singleton;
@@ -56,6 +58,7 @@ public class Materia {
     public void agregarEstudiante(Estudiante estudiante){
 
         estudiantesInscritos.add(estudiante);
+        Log.i("testingxd", "inscrito");
         new AdaptadorArchivo().escribirArchivo("estudiantes.csv", this.codigo + "," + estudiante.toString());
     }
 

@@ -1,5 +1,6 @@
 package com.example.proyectofragmentos.adaptador;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.Adapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectofragmentos.R;
@@ -18,13 +20,13 @@ import com.example.proyectofragmentos.vistas.FragmentoMaterias;
 import java.util.ArrayList;
 
 public class AdaptadorMateria extends RecyclerView.Adapter {
-    private final ArrayList<Materia> listaMateria;
-    private final FragmentoMaterias context;
+    private ArrayList<Materia> listaMateria;
+    private final Fragment context;
     private final RecyclerView recyclerView;
 
 
     public void onBindViewHolder(AdaptadorMateria.MyViewHolder myViewHolder, final int position) {
-
+        Log.i("testingxd","Me estoy llenando xD");
         final Materia materia = this.listaMateria.get(position);
         TextView textViewCodigo = myViewHolder.textViewCodigo;
         textViewCodigo.setText(materia.getCodigo());
@@ -63,15 +65,22 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
     }
 
     public int getItemCount() {
-        return this.listaMateria.size();
+        if(listaMateria != null){
+            return this.listaMateria.size();
+        }
+        return 0;
     }
 
 
 
-    public AdaptadorMateria(ArrayList listaMateria, FragmentoMaterias context, RecyclerView recyclerView) {
+    public AdaptadorMateria(ArrayList listaMateria, Fragment context, RecyclerView recyclerView) {
         this.listaMateria = listaMateria;
         this.context = context;
         this.recyclerView = recyclerView;
+    }
+
+    public void setListaMateria(ArrayList<Materia> materias){
+        this.listaMateria = materias;
     }
 
 

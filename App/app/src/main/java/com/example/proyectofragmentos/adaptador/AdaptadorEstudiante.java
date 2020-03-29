@@ -51,6 +51,13 @@ public final class AdaptadorEstudiante extends Adapter {
                 notifyItemRangeChanged(position, listaEstudiante.size());
             }
         }));
+
+        ImageButton buttonMaterias = myViewHolder.buttonMaterias;
+        buttonMaterias.setOnClickListener((OnClickListener)(new OnClickListener() {
+            public final void onClick(View it) {
+                context.irAMaterias(estudiante);
+            }
+        }));
     }
 
     @Override
@@ -82,6 +89,7 @@ public final class AdaptadorEstudiante extends Adapter {
                 private TextView textViewApellido;
                 private ImageButton buttonEditar;
                 private ImageButton buttonBorrar;
+                private ImageButton buttonMaterias;
 
 
         public MyViewHolder(View view) {
@@ -91,6 +99,7 @@ public final class AdaptadorEstudiante extends Adapter {
             this.textViewApellido = view.findViewById(R.id.textViewApellido);
             this.buttonEditar = view.findViewById(R.id.imageButtonEditar);
             this.buttonBorrar = view.findViewById(R.id.imageButtonBorrar);
+            this.buttonMaterias = view.findViewById(R.id.imageButtonMaterias);
         }
     }
 }

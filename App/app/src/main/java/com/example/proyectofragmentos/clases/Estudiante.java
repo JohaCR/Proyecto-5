@@ -60,8 +60,11 @@ public class Estudiante {
         ArrayList<Materia> materiasDelEstudiante = new ArrayList<>();
         for (Materia materia: Singleton.getInstance().materias
         ) {
-            if(materia.getEstudiantesInscritos().indexOf(this) != -1){
-                materiasDelEstudiante.add(materia);
+            for (Estudiante estudiante : materia.getEstudiantesInscritos()
+            ){
+                if(estudiante.getCedula().equals(this.cedula)){
+                    materiasDelEstudiante.add(materia);
+                }
             }
         }
         return materiasDelEstudiante;

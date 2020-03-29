@@ -63,6 +63,7 @@ public class AdaptadorArchivo {
     }
 
     public void escribirArchivo(String nombreArchivo, String datos){
+        Log.i("testingxd", "escribiendo lalala");
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(nombreArchivo, Context.MODE_APPEND));
             outputStreamWriter.append(datos);
@@ -121,10 +122,12 @@ public class AdaptadorArchivo {
                 while ( (receiveString = bufferedReader.readLine()) != null ) {
                     String[] parametros = receiveString.split(",");
                     Estudiante estudiante = new Estudiante(parametros[1], parametros[2], parametros[3]);
-                    if(parametros[0].equals("") && materia == null){
-                        this.estudiantes.add(estudiante);
+                    if(materia == null){
+                        if(parametros[0].equals("")) {
+                            this.estudiantes.add(estudiante);
+                        }
                     }else if(parametros[0].equals(materia.getCodigo())){
-                        materia.agregarEstudiante(estudiante);
+                        materia.getEstudiantesInscritos().add(estudiante);
                     }
                 }
                 inputStream.close();

@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         new AdaptadorArchivo().setContext(this.getApplicationContext());
         Singleton.getInstance();
 
+//        Estudiante estudiante = new Estudiante("1805094230", "José", "Murillo");
+//        Materia materia = new Materia("SIS518", "Programacion", "Molina");
+//        new AdaptadorArchivo().escribirArchivo("materias.csv", materia.toString());
+//        Singleton.getInstance().materias.get(0).agregarEstudiante(Singleton.getInstance().estudiantes.get(0));
+
         /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
