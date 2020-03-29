@@ -97,7 +97,7 @@ public class EditarEstudiante extends Fragment {
             bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
                 public final void onClick(View it) {
                     editarEstudiante(estudiante);
-                    irAMateriasParaInscribirse();
+                    irAMateriasParaInscribirse(Integer.parseInt(mParam1));
                 }
             }));
         }else{
@@ -108,7 +108,7 @@ public class EditarEstudiante extends Fragment {
             bt_guardar.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
                 public final void onClick(View it) {
                     guardarEstudiante();
-                    irAMateriasParaInscribirse();
+                    irAMateriasParaInscribirse(Singleton.getInstance().estudiantes.size());
                 }
             }));
         }
@@ -145,8 +145,8 @@ public class EditarEstudiante extends Fragment {
         new AdaptadorArchivo().eliminarArchivoMaterias();
     }
 
-    public void irAMateriasParaInscribirse(){
-        AgregarYQuitarMaterias inscribirseEnMaterias = AgregarYQuitarMaterias.newInstance("","");
+    public void irAMateriasParaInscribirse(int indice){
+        AgregarYQuitarMaterias inscribirseEnMaterias = AgregarYQuitarMaterias.newInstance("" + indice,"");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.root_frame_est,inscribirseEnMaterias);
         fragmentTransaction.addToBackStack(null).commit();

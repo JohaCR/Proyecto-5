@@ -98,12 +98,14 @@ public class Materia {
         Método que elimina a un estudiante de la lista de estudiantes inscritos en esta materia.
      */
     public void quitarEstudiante(Estudiante estudiante){
+        int indiceAEliminar = -1;
         for (Estudiante estudianteAEliminar: this.estudiantesInscritos
              ) {
             if(estudianteAEliminar.getCedula().equals(estudiante.getCedula())){
-                estudiantesInscritos.remove(estudianteAEliminar);
+                indiceAEliminar = this.estudiantesInscritos.indexOf(estudianteAEliminar);
             }
         }
+        estudiantesInscritos.remove(indiceAEliminar);
     }
 
     /*

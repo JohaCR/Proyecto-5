@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.clases.Materia;
+import com.example.proyectofragmentos.vistas.AgregarYQuitarMaterias;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class AdaptadorAgregarMateria extends RecyclerView.Adapter {
     private ArrayList<Materia> listaMateria;
     private final Fragment context;
     private final RecyclerView recyclerView;
+    private boolean sePuedeAgregar;
 
 
     public void onBindViewHolder(AdaptadorAgregarMateria.MyViewHolder myViewHolder, final int position) {
@@ -34,9 +36,20 @@ public class AdaptadorAgregarMateria extends RecyclerView.Adapter {
         textViewProfesorAgregar.setText(materia.getProfesor());
 
         ImageButton inscribirse = myViewHolder.inscribirse;
+
+        if(sePuedeAgregar){
+            inscribirse.setBackground(context.getActivity().getDrawable(R.drawable.plus));
+        }else{
+            inscribirse.setBackground(context.getActivity().getDrawable(R.drawable.minus));
+        }
+
         inscribirse.setOnClickListener((View.OnClickListener)(new View.OnClickListener() {
             public final void onClick(View it) {
-                /*codigo para inscribirse */
+                if(sePuedeAgregar){
+                    ((AgregarYQuitarMaterias) context).agregarMateria(position);
+                }else{
+                    ((AgregarYQuitarMaterias) context).quitarMateria(position);
+                }
             }
         }));
 
@@ -45,7 +58,7 @@ public class AdaptadorAgregarMateria extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.materia_ly, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.materia_agregar_ly, parent, false);
         return new AdaptadorAgregarMateria.MyViewHolder(view);
     }
 
@@ -62,10 +75,11 @@ public class AdaptadorAgregarMateria extends RecyclerView.Adapter {
 
 
 
-    public AdaptadorAgregarMateria(ArrayList listaMateria, Fragment context, RecyclerView recyclerView) {
+    public AdaptadorAgregarMateria(ArrayList listaMateria, Fragment context, RecyclerView recyclerView, boolean sePuedeAgregar) {
         this.listaMateria = listaMateria;
         this.context = context;
         this.recyclerView = recyclerView;
+        this.sePuedeAgregar = sePuedeAgregar;
     }
 
     public void setListaMateria(ArrayList<Materia> materias){

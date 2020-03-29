@@ -3,17 +3,23 @@ package com.example.proyectofragmentos.vistas;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.proyectofragmentos.R;
 import com.example.proyectofragmentos.adaptador.AdaptadorAgregarMateria;
+import com.example.proyectofragmentos.adaptador.Singleton;
 import com.example.proyectofragmentos.clases.Materia;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -31,6 +37,13 @@ public class AgregarYQuitarMaterias extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ArrayList<Materia> materiasTomadas = new ArrayList<>();
+    private ArrayList<Materia> materiasDisponibles = new ArrayList<>();
+    private RecyclerView rv_materias_inscritas;
+    private RecyclerView rv_materias_disponibles;
+    private AdaptadorAgregarMateria adaptadorInscritas;
+    private AdaptadorAgregarMateria adaptadorDisponibles;
 
     public AgregarYQuitarMaterias() {
         // Required empty public constructor
@@ -70,21 +83,97 @@ public class AgregarYQuitarMaterias extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_agregar_y_quitar_materias, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_agregar_y_quitar_materias, container, false);
+
+
+        if(mParam1.equals("" + Singleton.getInstance().estudiantes.size())){
+            materiasTomadas = new ArrayList<>();
+        }else{
+            int indice = Integer.parseInt(mParam1);
+            materiasTomadas = Singleton.getInstance().estudiantes.get(indice).getMaterias();
+        }
+
+        for (Materia materia: Singleton.getInstance().materias
+             ) {
+            boolean laMateriaFueTomada = false;
+            for (Materia materiaTomada: materiasTomadas
+                 ) {
+                if(materiaTomada.getCodigo().equals(materia.getCodigo())){
+                    laMateriaFueTomada = true;
+                }
+            }
+            if(!laMateriaFueTomada){
+                materiasDisponibles.add(materia);
+            }
+        }
+
+        rv_materias_inscritas = rootView.findViewById(R.id.materiasInscritasRV);
+        rv_materias_disponibles = rootView.findViewById(R.id.materiasParaInscribirseRV);
+
+        iniciarRecyclerView(materiasTomadas, this, rv_materias_inscritas, false);
+        iniciarRecyclerView(materiasDisponibles, this, rv_materias_disponibles, true);
+
+        ImageButton button_aceptar = rootView.findViewById(R.id.buttonAgregarMateriasEstudiante);
+        button_aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irAListaEstudiantes();
+            }
+        });
+
+        return rootView;
     }
 
 
-    public void iniciarRecyclerView(ArrayList<Materia> listaMaterias, AgregarYQuitarMaterias fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
+    public void iniciarRecyclerView(ArrayList<Materia> listaMaterias, AgregarYQuitarMaterias fragmento, androidx.recyclerview.widget.RecyclerView recycler_view, boolean sePuedeAgregar){
 
         AdaptadorAgregarMateria adaptadorMateria = new AdaptadorAgregarMateria(
                 listaMaterias,
                 fragmento,
-                recycler_view
+                recycler_view,
+                sePuedeAgregar
         );
 
         recycler_view.setAdapter(adaptadorMateria);
         recycler_view.setItemAnimator(new DefaultItemAnimator());
         recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(sePuedeAgregar){
+            adaptadorDisponibles = adaptadorMateria;
+        }else{
+            adaptadorInscritas = adaptadorMateria;
+        }
+    }
 
+    public void agregarMateria(int indiceDisponible){
+        if(mParam1.equals("" + Singleton.getInstance().estudiantes.size())){
+            materiasDisponibles.get(indiceDisponible).agregarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1) - 1));
+        }else{
+            materiasDisponibles.get(indiceDisponible).agregarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1)));
+        }
+        materiasTomadas.add(materiasDisponibles.get(indiceDisponible));
+        materiasDisponibles.remove(indiceDisponible);
+        adaptadorInscritas.notifyDataSetChanged();
+        adaptadorDisponibles.notifyDataSetChanged();
+    }
+
+    /*
+        Función
+     */
+    public void quitarMateria(int indiceTomada){
+        materiasTomadas.get(indiceTomada).quitarEstudiante(Singleton.getInstance().estudiantes.get(Integer.parseInt(mParam1)));
+        materiasDisponibles.add(materiasTomadas.get(indiceTomada));
+        materiasTomadas.remove(indiceTomada);
+        adaptadorDisponibles.notifyDataSetChanged();
+        adaptadorInscritas.notifyDataSetChanged();
+    }
+
+    /*
+        Función para ir al fragmento que lista todos los estudiantes
+     */
+    public void irAListaEstudiantes(){
+        FragmentoEstudiantes fragmentoEstudiantes = FragmentoEstudiantes.newInstance("", "");
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.root_frame_est, fragmentoEstudiantes);
+        fragmentTransaction.addToBackStack(null).commit();
     }
 }
