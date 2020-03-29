@@ -30,6 +30,10 @@ import java.util.ArrayList;
  * Use the {@link FragmentoMaterias#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+/*Fragmento sobre el cual se muestra la lista de todas las materias disponibles en un Recycler View
+Con las opciones para editar la materia, borrarla y ver sus alumnos.
+* */
 public class FragmentoMaterias extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,6 +78,10 @@ public class FragmentoMaterias extends Fragment {
         }
     }
 
+    /*Override de la funcion onCreateView
+    * En esta funcion se define como se mostraran las materias dependiendo de la orientacion del telefono
+    * Ademas se inicia el recycler view de materias.
+    * */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,18 +103,18 @@ public class FragmentoMaterias extends Fragment {
             RecyclerView recyclerViewEstudiantes = (RecyclerView) rootView.findViewById(R.id.rv_land_estudiantes);
             iniciarRecyclerViewEstudiantes(this.estudiantes, this, recyclerViewEstudiantes);
         }
-
         ImageButton btnCrear = rootView.findViewById(R.id.imageButtonAgregarMateria);
-
         btnCrear.setOnClickListener((View.OnClickListener) (new View.OnClickListener() {
             public final void onClick(View it){
                 irANuevo();
             }
         }));
-
         return rootView;
     }
 
+    /*Funcion que crea un nuevo adaptador materia con los siguientes atributos: la lista de materias,
+     el recycler view de materias y el fragmento.
+    * */
     public void iniciarRecyclerView(ArrayList<Materia> listaMaterias, FragmentoMaterias fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
 
         AdaptadorMateria adaptadorMateria = new AdaptadorMateria(
@@ -121,6 +129,9 @@ public class FragmentoMaterias extends Fragment {
 
     }
 
+    /*Funcion que crea un adaptador estudiantes para mostrar la lista de estudiantes que tiene una materia
+    tiene como atributos: la lista de estudiantes de la materia, el fragmento que se va a usar y el recycler view de estudiantes.
+    * */
     public void iniciarRecyclerViewEstudiantes(ArrayList<Estudiante> listaEstudiantes, FragmentoMaterias fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
 
         AdaptadorEstudiante adaptadorEstudiante = new AdaptadorEstudiante(
@@ -136,6 +147,9 @@ public class FragmentoMaterias extends Fragment {
         this.adaptadorEstudiante = adaptadorEstudiante;
     }
 
+    /*
+    Funcion que permite ir al fragmento en donde se crean nuevas materias.
+    * */
     public void irANuevo(){
         EditarMateria fragmentosEditarMateria = EditarMateria.newInstance("","");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -143,13 +157,18 @@ public class FragmentoMaterias extends Fragment {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
+    /*
+    * Funcion que permite ir al fragmento en donde se puede editar una materia
+    * */
     public void irAEditar(int indice){
         EditarMateria fragmentosEditarMateria = EditarMateria.newInstance("" + indice,"");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.root_frame_mat, fragmentosEditarMateria);
         fragmentTransaction.addToBackStack(null).commit();
     }
-
+    /*
+    Funcion que permite navegar hacia la lista de estudiantes de una materia.
+    * */
     public void irAEstudiantes(int indice){
         int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {

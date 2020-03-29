@@ -10,6 +10,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.proyectofragmentos.R;
 
+
+/*Es un fragmento vacio sobre el cual se dibujan todos los fragmentos relacionados a estudiante,
+como: FragmentoEstudiantes, EditarEstudiante y AgregarYQuitarMaterias
+* */
 public class EstudianteTab extends Fragment {
 
     @Override

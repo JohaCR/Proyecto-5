@@ -98,7 +98,7 @@ public class AdaptadorMateria extends RecyclerView.Adapter {
     }
 
     /*
-        Método Setter del ArrayList<Estudiante> listaEstudiante del adaptador.
+        Método Setter del ArrayList<Materia> listaMateria del adaptador.
      */
     public void setListaMateria(ArrayList<Materia> materias){
         this.listaMateria = materias;

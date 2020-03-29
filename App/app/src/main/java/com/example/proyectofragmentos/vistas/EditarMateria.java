@@ -22,6 +22,9 @@ import com.example.proyectofragmentos.clases.Materia;
  * Use the {@link EditarMateria#newInstance} factory method to
  * create an instance of this fragment.
  */
+/*
+ Fragmento que maneja el layout editar materia, se rehusa esta clase para editar las materias y para crearlos
+ */
 public class EditarMateria extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +61,9 @@ public class EditarMateria extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    /*
+     * Código autogenerado, que hace un override del método OnCreate
+     * */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,9 @@ public class EditarMateria extends Fragment {
         }
     }
 
+    /*
+     * Código autogenerado, en el que se establecen los valores que tendran los elementos del layout
+     * */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +89,8 @@ public class EditarMateria extends Fragment {
         ImageButton guardar = rootView.findViewById(R.id.imageButtonOkEditarMateria);
         ImageButton cancelar = rootView.findViewById(R.id.imageButtonCancelarEditarMateria);
 
+        /*Condicional que define que valores tendran los elementos del layout dependiendo
+        de si se va a editar una materia o a crear una materia.*/
         if(!mParam1.equals("")){
             final Materia materia = Singleton.getInstance().materias.get(Integer.parseInt(mParam1));
             this.et_codigo.setText(materia.getCodigo());
@@ -106,16 +116,16 @@ public class EditarMateria extends Fragment {
             });
         }
 
+        /*Botón que permite cancelar la creación o edición y regresar al fragmento anterior */
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 regresarAMaterias();
             }
         });
-
         return rootView;
     }
-
+    /* Funcion que permite guardar los datos editados de una materia */
     public void editarMateria(Materia materia){
         materia.setCodigo(this.et_codigo.getText().toString());
         materia.setNombre(this.et_nombre.getText().toString());
@@ -123,6 +133,7 @@ public class EditarMateria extends Fragment {
         new AdaptadorArchivo().eliminarArchivoMaterias();
     }
 
+    /*Funcion que permite guardar los datos de una nueva materia*/
     public void guardarMateria(){
         String codigo = this.et_codigo.getText().toString();
         String nombre = this.et_nombre.getText().toString();
@@ -132,6 +143,9 @@ public class EditarMateria extends Fragment {
         Singleton.getInstance().materias.add(nuevaMateria);
     }
 
+    /*Funcion que permite reemplazar el fragmento actual EditarMateria por el fragmento
+    FragmentoMateriass para volver a la lista de materias.
+    * */
     public void regresarAMaterias(){
         FragmentoMaterias fragmentoMaterias = FragmentoMaterias.newInstance("", "");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

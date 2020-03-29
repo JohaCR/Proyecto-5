@@ -24,6 +24,10 @@ import com.example.proyectofragmentos.clases.Materia;
 
 import java.util.ArrayList;
 
+/*Fragmento sobre el cual se muestra la lista de todas los estudiantes creados en un Recycler View
+Con las opciones para editar el estudiante, borrarlo y ver sus materias.
+* */
+
 public class FragmentoEstudiantes extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,6 +67,12 @@ public class FragmentoEstudiantes extends Fragment {
         return fragment;
     }
 
+
+    /*Override de la funcion onCreateView
+     * En esta funcion se define como se mostraran los estudiantes dependiendo de la orientacion del telefono
+     * Ademas se inicia el recycler view de estudiantes.
+     * */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,6 +110,10 @@ public class FragmentoEstudiantes extends Fragment {
         return rootView;
     }
 
+
+    /*Funcion que crea un nuevo adaptador estudiante con los siguientes atributos: la lista de estudiantes,
+      el recycler view de estudiantes y el fragmento.
+     * */
     public void iniciarRecyclerView(ArrayList<Estudiante> listaEstudiantes, FragmentoEstudiantes fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
 
         AdaptadorEstudiante adaptadorEstudiante = new AdaptadorEstudiante(
@@ -114,6 +128,9 @@ public class FragmentoEstudiantes extends Fragment {
 
     }
 
+    /*Funcion que crea un adaptador materias para mostrar la lista de materias que tiene un estudiante
+   tiene como atributos: la lista de materias del estudiante, el fragmento que se va a usar y el recycler view de materias.
+   * */
     public void iniciarRecyclerViewMaterias(ArrayList<Materia> listaMaterias, FragmentoEstudiantes fragmento, androidx.recyclerview.widget.RecyclerView recycler_view){
 
         AdaptadorMateria adaptadorMateria = new AdaptadorMateria(
@@ -127,7 +144,9 @@ public class FragmentoEstudiantes extends Fragment {
         recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.adaptadorMateria = adaptadorMateria;
     }
-
+    /*
+     * Funcion que permite ir al fragmento en donde se puede editar un estudiante
+     * */
     public void irAEditar(int indice){
         EditarEstudiante fragmentosEditarEstudiante = EditarEstudiante.newInstance("" + indice,"");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -135,6 +154,9 @@ public class FragmentoEstudiantes extends Fragment {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
+    /*
+    Funcion que permite ir al fragmento en donde se crean nuevos estudiantes.
+    * */
     public void irANuevo(){
         EditarEstudiante fragmentosEditarEstudiante = EditarEstudiante.newInstance("","");
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -142,7 +164,9 @@ public class FragmentoEstudiantes extends Fragment {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-
+    /*
+    Funcion que permite navegar hacia la lista de materias de un estudiante.
+    * */
     public void irAMaterias(Estudiante estudiante, int indice){
 
         int orientation = getResources().getConfiguration().orientation;
